@@ -12,6 +12,16 @@ import torch.multiprocessing as mp
 from alpha_net import ChessNet
 import datetime
 
+def ensure_dir(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+# Ensure required directories exist
+ensure_dir("./model_data")
+ensure_dir("./datasets/iter0")
+ensure_dir("./datasets/iter1")
+ensure_dir("./datasets/iter2")
+
 class UCTNode():
     def __init__(self, game, move, parent=None):
         self.game = game # state s
@@ -207,7 +217,7 @@ def MCTS_self_play(chessnet,num_games,cpu):
             current_board = do_decode_n_move_pieces(current_board,best_move) # decode move and move piece(s)
             policy = get_policy(root)
             dataset.append([board_state,policy])
-            print(current_board.current_board,current_board.move_count); print(" ")
+            # print(current_board.current_board,current_board.move_count); print(" ")
             if current_board.check_status() == True and current_board.in_check_possible_moves() == []: # checkmate
                 if current_board.player == 0: # black wins
                     value = -1
@@ -237,7 +247,7 @@ if __name__=="__main__":
         net.cuda()
     net.share_memory()
     net.eval()
-    print("hi")
+    # print("hi")
     #torch.save({'state_dict': net.state_dict()}, os.path.join("./model_data/",\
     #                                "current_net.pth.tar"))
     

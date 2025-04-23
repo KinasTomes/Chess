@@ -29,7 +29,6 @@ if __name__=="__main__":
             net.cuda()
         net.share_memory()
         net.eval()
-        print("hi")
         current_net_filename = os.path.join("./model_data/",\
                                         net_to_play)
         checkpoint = torch.load(current_net_filename)
@@ -70,7 +69,6 @@ if __name__=="__main__":
             net.cuda()
         net.share_memory()
         net.train()
-        print("hi")
         current_net_filename = os.path.join("./model_data/",\
                                         net_to_train)
         checkpoint = torch.load(current_net_filename)

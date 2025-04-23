@@ -131,10 +131,10 @@ def train(net, dataset, epoch_start=0, epoch_stop=20, cpu=0):
             optimizer.step()
             total_loss += loss.item()
             if i % 10 == 9:    # print every 10 mini-batches of size = batch_size
-                print('Process ID: %d [Epoch: %d, %5d/ %d points] total loss per batch: %.3f' %
-                      (os.getpid(), epoch + 1, (i + 1)*30, len(train_set), total_loss/10))
-                print("Policy:",policy[0].argmax().item(),policy_pred[0].argmax().item())
-                print("Value:",value[0].item(),value_pred[0,0].item())
+                # print('Process ID: %d [Epoch: %d, %5d/ %d points] total loss per batch: %.3f' %
+                #       (os.getpid(), epoch + 1, (i + 1)*30, len(train_set), total_loss/10))
+                # print("Policy:",policy[0].argmax().item(),policy_pred[0].argmax().item())
+                # print("Value:",value[0].item(),value_pred[0,0].item())
                 losses_per_batch.append(total_loss/10)
                 total_loss = 0.0
         losses_per_epoch.append(sum(losses_per_batch)/len(losses_per_batch))
