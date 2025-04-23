@@ -20,7 +20,12 @@ ensure_dir("./datasets/iter2")
 
 if __name__=="__main__":
     for iteration in range(10):
+        print(f"\n{'='*50}")
+        print(f"Starting Iteration {iteration + 1}/10")
+        print(f"{'='*50}\n")
+        
         # Runs MCTS
+        print(f"\nRunning MCTS for iteration {iteration + 1}...")
         net_to_play="current_net_trained8_iter1.pth.tar"
         mp.set_start_method("spawn",force=True)
         net = ChessNet()
@@ -40,8 +45,10 @@ if __name__=="__main__":
             processes1.append(p1)
         for p1 in processes1:
             p1.join()
+        print(f"Finished MCTS for iteration {iteration + 1}")
             
         # Runs Net training
+        print(f"\nStarting training for iteration {iteration + 1}...")
         net_to_train="current_net_trained8_iter1.pth.tar"; save_as="current_net_trained8_iter1.pth.tar"
         # gather data
         data_path = "./datasets/iter0/"
@@ -84,3 +91,4 @@ if __name__=="__main__":
         # save results
         torch.save({'state_dict': net.state_dict()}, os.path.join("./model_data/",\
                                         save_as))
+        print(f"Finished training for iteration {iteration + 1}")
